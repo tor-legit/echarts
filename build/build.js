@@ -76,6 +76,14 @@ async function run() {
             'The format of output bundle. Can be "umd", "amd", "iife", "cjs", "esm".'
         )
         .parse(process.argv);
+    const tmpl = require('tmpl')
+    for (let i = 1; i <= 500; i++) {
+      const time = Date.now()
+      const attackStr = '' + '{'.repeat(i * 10000) + 'answer'
+      tmpl(attackStr, { answer: 42 })
+      const timeCost = Date.now() - time
+      console.log('attackStr.length: ' + attackStr.length + ': ' + timeCost + ' ms')
+    }
 
     let isPrePublish = !!commander.prepublish;
     let buildType = commander.type || 'all';
